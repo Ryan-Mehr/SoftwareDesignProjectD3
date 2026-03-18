@@ -11,7 +11,6 @@ module org.example.softwaredesignprojectd2 {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
-    requires flyway.core;
     requires jbcrypt;
 
     opens GUI to javafx.fxml;

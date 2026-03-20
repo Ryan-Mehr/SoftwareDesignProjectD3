@@ -12,12 +12,14 @@
             <Font name="Monospaced Bold" size="36.0" />
          </font>
       </Text>
-      <Button layoutX="225.0" layoutY="247.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="PvP">
-         <font>
-            <Font name="Monospaced Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button layoutX="225.0" layoutY="308.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="PvE">
+       <Button layoutX="225.0" layoutY="247.0" mnemonicParsing="false"
+               prefHeight="50.0" prefWidth="250.0" text="PvP"
+               onAction="#switchToPvPInvite">
+           <font>
+               <Font name="Monospaced Bold" size="24.0" />
+           </font>
+       </Button>
+       <Button layoutX="225.0" layoutY="308.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="250.0" text="PvE">
          <font>
             <Font name="Monospaced Bold" size="24.0" />
          </font>

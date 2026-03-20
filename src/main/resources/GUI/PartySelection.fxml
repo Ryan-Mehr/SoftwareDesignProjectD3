@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.PartySelectionController"
+            prefWidth="600" prefHeight="450"
+            style="-fx-background-color: #f2ebd8;">
+
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20"
+          AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Select Your Party" />
+
+        <TableView fx:id="partyTable" prefWidth="560" prefHeight="250">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Party Name" prefWidth="200"/>
+                <TableColumn fx:id="infoColumn" text="Party Info" prefWidth="360"/>
+            </columns>
+        </TableView>
+
+        <Label text="Select a party and click Choose Party to continue"
+               style="-fx-text-fill: gray; -fx-font-size: 12px;" />
+
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Choose Party" onAction="#chooseParty"
+                    prefWidth="150" prefHeight="40"
+                    style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+
+            <Button text="Back" onAction="#backToMainMenu"
+                    prefWidth="150" prefHeight="40"
+                    style="-fx-font-size: 14px; -fx-background-color: #f44336; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

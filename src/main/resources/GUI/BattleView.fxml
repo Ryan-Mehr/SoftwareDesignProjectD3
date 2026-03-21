@@ -101,9 +101,6 @@
                         onAction="#defendAction" prefWidth="130" prefHeight="50"
                         style="-fx-font-size: 16px; -fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25;"/>
 
-                <Button fx:id="waitButton" text="⏳ WAIT"
-                        onAction="#waitAction" prefWidth="130" prefHeight="50"
-                        style="-fx-font-size: 16px; -fx-background-color: #ffa000; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25;"/>
 
                 <Button fx:id="castButton" text="💫 CAST"
                         onAction="#castAction" prefWidth="130" prefHeight="50"

@@ -31,7 +31,6 @@ public class BattleController implements Initializable {
     @FXML private VBox actionButtonsVBox;
     @FXML private Button attackButton;
     @FXML private Button defendButton;
-    @FXML private Button waitButton;
     @FXML private Button castButton;
     @FXML private ComboBox<String> targetSelector;
 
@@ -229,7 +228,6 @@ public class BattleController implements Initializable {
         // Check individual buttons
         System.out.println("attackButton is null? " + (attackButton == null));
         System.out.println("defendButton is null? " + (defendButton == null));
-        System.out.println("waitButton is null? " + (waitButton == null));
         System.out.println("castButton is null? " + (castButton == null));
 
         // Disable cast button if not enough mana
@@ -246,11 +244,9 @@ public class BattleController implements Initializable {
         // Enable all action buttons
         attackButton.setDisable(false);
         defendButton.setDisable(false);
-        waitButton.setDisable(false);
 
         System.out.println("Attack button enabled: " + !attackButton.isDisable());
         System.out.println("Defend button enabled: " + !defendButton.isDisable());
-        System.out.println("Wait button enabled: " + !waitButton.isDisable());
 
         System.out.println("=== showActionButtonsForHero END ===");
     }
@@ -346,20 +342,6 @@ public class BattleController implements Initializable {
         }
 
         String result = battleSystem.processDefend(currentActingHero);
-        battleLogArea.appendText("\n" + result);
-
-        // End turn
-        endTurn();
-    }
-
-    @FXML
-    private void waitAction(ActionEvent event) {
-        if (currentActingHero == null || currentActingHero.isDefeated()) {
-            battleLogArea.appendText("This hero cannot act!\n");
-            return;
-        }
-
-        String result = battleSystem.processWait(currentActingHero);
         battleLogArea.appendText("\n" + result);
 
         // End turn

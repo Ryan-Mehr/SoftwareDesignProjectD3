@@ -26,11 +26,11 @@ public class PvEController {
     @FXML
     private void handleStartBattle(ActionEvent event) {
 
-
         attackButton.setVisible(true);
         defendButton.setVisible(true);
 
         startButton.setDisable(true);
+
         player = new Player("Hero", 100, 20);
 
         Enemy zombie = new Enemy("Zombie", 50, 10);
@@ -42,7 +42,10 @@ public class PvEController {
                 new Room(2, skeleton),
                 new Room(3, spider)
         };
+
         currentRoomIndex = 0;
+
+        battleLog.clear();
 
         loadRoom();
 
@@ -51,8 +54,6 @@ public class PvEController {
         nextRoomButton.setDisable(true);
 
         battleLog.appendText("Battle started!\n");
-
-        startButton.setDisable(true);
     }
 
     @FXML
@@ -123,10 +124,6 @@ public class PvEController {
 
     @FXML
     private void handleNextRoom(ActionEvent event) {
-        if (nextRoomButton.getText().equals("Restart")) {
-            handleRestart(event);
-            return;
-        }
 
         currentRoomIndex++;
         if (currentRoomIndex < rooms.length) {
@@ -139,9 +136,10 @@ public class PvEController {
             nextRoomButton.setDisable(true);
         } else {
             battleLog.appendText("\nCampaign Complete!\n");
-            nextRoomButton.setText("Restart");
             attackButton.setVisible(false);
             defendButton.setVisible(false);
+            nextRoomButton.setDisable(true);
+            startButton.setDisable(false);
         }
     }
 
@@ -162,6 +160,7 @@ public class PvEController {
     private void initialize() {
         attackButton.setVisible(false);
         defendButton.setVisible(false);
+        nextRoomButton.setDisable(true);
     }
 
 }

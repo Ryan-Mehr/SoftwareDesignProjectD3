@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
+import Classes.Battle.Player;
+import Classes.Battle.BattleManager;
+
 
 public class ApplicationController {
     @FXML private TextField usernameField;
@@ -54,6 +57,25 @@ public class ApplicationController {
         System.out.println("exit");
         System.exit(0);
     }
+    public void openMatchHistory(ActionEvent event) throws IOException {
+        System.out.println("Opening Match History...");
+        switchScene(event, "MatchHistory");
+    }
+    public void startPvP(ActionEvent actionEvent) {
+        System.out.println("Starting PvP Battle...");
+
+        // Player 1 = logged-in user
+        Player p1 = new Player(ApplicationStates.theUser.getUsername(), 100, 20, 5);
+
+        // Player 2 = another real user (temporary hard-coded)
+        Player p2 = new Player("CPU_Opponent", 100, 20, 5);
+
+        new Thread(() -> {
+            BattleManager battle = new BattleManager(p1, p2);
+            battle.startBattle();
+        }).start();
+    }
+
 
     // Account menu methods.
     public void loginMenu(ActionEvent actionEvent) throws IOException {
@@ -172,6 +194,11 @@ public class ApplicationController {
         }
 
         return false;
+    }
+    public void switchToPvPInvite(ActionEvent event) throws IOException {
+        if (checkLoggedIn()) {
+            switchScene(event, "PvPInvite");
+        }
     }
 
 }

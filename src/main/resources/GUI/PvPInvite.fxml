@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.PvPInviteController"
+            prefWidth="600" prefHeight="400">
+
+    <Label text="PvP Invitation" layoutX="230" layoutY="40" style="-fx-font-size: 20px;"/>
+
+    <Label text="Enter opponent username:" layoutX="80" layoutY="120"/>
+    <TextField fx:id="opponentField" layoutX="250" layoutY="115" prefWidth="200"/>
+
+    <Button text="Send Invitation"
+            layoutX="250" layoutY="170"
+            onAction="#sendInvitation"/>
+
+    <Label fx:id="statusLabel" layoutX="80" layoutY="230" style="-fx-text-fill: red;"/>
+
+    <Button text="Back" layoutX="20" layoutY="20" onAction="#backToMainMenu"/>
+
+</AnchorPane>

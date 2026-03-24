@@ -1,10 +1,9 @@
 package Classes.Heros;
 
 import Classes.Party;
-import java.util.*;
 
-public class Order extends Hero {
-    public Order() {
+public class OrderHero extends Hero {
+    public OrderHero() {
         this.heroClass = HeroClass.ORDER;
         // Order gets +5 mana, +2 defense per level
         this.manaLevelUpIncrement += 5;  // Base 2 + 5 = 7 total

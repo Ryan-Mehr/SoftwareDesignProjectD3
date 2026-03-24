@@ -1,5 +1,6 @@
 package GUI;
 
+import Classes.Heros.OrderHero;
 import GlobalVariables.ApplicationStates;
 import Classes.Party;
 import Repository.PartyRepository;
@@ -100,7 +101,7 @@ public class PartySelectionController implements Initializable {
                 System.out.println("⚠️ Your party has no heroes! Adding test heroes...");
                 selected.addHero(new Classes.Heros.Warrior());
                 selected.addHero(new Classes.Heros.Mage());
-                selected.addHero(new Classes.Heros.Order());
+                selected.addHero(new OrderHero());
                 System.out.println("✅ Added 3 heroes to your party");
             }
 
@@ -123,7 +124,7 @@ public class PartySelectionController implements Initializable {
                 if (ApplicationStates.opponentParty.getHeroes().isEmpty()) {
                     System.out.println("⚠️ Opponent party has no heroes! Adding test heroes...");
                     ApplicationStates.opponentParty.addHero(new Classes.Heros.Chaos());
-                    ApplicationStates.opponentParty.addHero(new Classes.Heros.Order());
+                    ApplicationStates.opponentParty.addHero(new OrderHero());
                     ApplicationStates.opponentParty.addHero(new Classes.Heros.Mage());
                     System.out.println("✅ Added 3 heroes to opponent party");
                 }

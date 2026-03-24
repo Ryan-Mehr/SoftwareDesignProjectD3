@@ -1,6 +1,7 @@
 package Classes.Heros;
 
 import Classes.Party;
+import java.util.*;
 
 public abstract class Hero {
     protected String heroID = "";
@@ -93,10 +94,10 @@ public abstract class Hero {
     public void takeDamage(int damage) {
         System.out.println(">>> Hero.takeDamage called for " + this.heroClass);
         System.out.println("  Before - HP: " + hp + ", Defending: " + defending);
-
         System.out.println("\t*** takeDamage::damage=" + damage);
         System.out.println("\t*** takeDamage::shield=" + shield);
-        // Check shield first (if you have shield implemented)
+
+        // Check shield first
         if (shield > 0) {
             int shieldDamage = Math.min(shield, damage);
             shield -= shieldDamage;
@@ -105,7 +106,8 @@ public abstract class Hero {
         }
 
         System.out.println("\t*** takeDamage::defending=" + defending + " defense=" + defense);
-        // Check defending
+
+        // Check defending - only subtract defense ONCE here
         if (defending) {
             damage -= defense;
             if (damage < 0) damage = 0;
@@ -113,8 +115,9 @@ public abstract class Hero {
             System.out.println("  Was defending, reduced damage to: " + damage);
         }
 
-        int damageToTake = damage - defense;
-        if (damageToTake < 0) damageToTake = 0;
+        // Use damage directly (defense was already subtracted if defending)
+        int damageToTake = damage;
+        if (damageToTake < 1) damageToTake = 1;  // Minimum 1 damage
 
         System.out.println("  Final damage to take: " + damageToTake);
 
@@ -154,6 +157,14 @@ public abstract class Hero {
     public void defend() {
         defending = true;
         System.out.println(heroClass + " is defending!");
+    }
+
+    public void applyDefendEndOfTurn() {
+        if(defending) {
+            heal(10);
+            restoreMana(5);
+            defending = false;
+        }
     }
 
     public void waitAction() {

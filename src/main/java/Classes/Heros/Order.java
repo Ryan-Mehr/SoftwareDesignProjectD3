@@ -1,6 +1,7 @@
 package Classes.Heros;
 
 import Classes.Party;
+import java.util.*;
 
 public class Order extends Hero {
     public Order() {
@@ -39,4 +40,27 @@ public class Order extends Hero {
             System.out.println(heroClass + " casts Protect on the entire party!");
         }
     }
+
+    // Heal - separate method from the heal ability
+    public void healLowestAlly(Party friendlyParty) {
+        if(!spendMana(35)) return;
+
+        //find the hero with the lowest current health
+        Hero lowestHero = null;
+        int lowestHp = Integer.MAX_VALUE;
+
+        for (Hero hero : friendlyParty.getHeroes()) {
+            if(!hero.isDefeated() && hero.getHp() < lowestHp) {
+                lowestHp = hero.getHp();
+                lowestHero = hero;
+            }
+        }
+        if (lowestHero != null) {
+            int healAmount = lowestHero.getMaxHp() / 4; // 25% of original health
+            lowestHero.heal(healAmount);
+            System.out.println(heroClass +  " heals " + lowestHero.getHeroClass() + " for " + healAmount + " HP!");
+
+        }
+    }
+
 }

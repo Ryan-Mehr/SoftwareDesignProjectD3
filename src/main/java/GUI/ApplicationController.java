@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import Classes.Party;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -64,14 +65,29 @@ public class ApplicationController {
     public void startPvP(ActionEvent actionEvent) {
         System.out.println("Starting PvP Battle...");
 
-        // Player 1 = logged-in user
-        Player p1 = new Player(ApplicationStates.theUser.getUsername(), 100, 20, 5);
+        // Get the parties that were selected during party selection
+        Party player1Party = ApplicationStates.selectedParty;
+        Party player2Party = ApplicationStates.opponentParty;
 
-        // Player 2 = another real user (temporary hard-coded)
-        Player p2 = new Player("CPU_Opponent", 100, 20, 5);
+        // Check if parties were properly selected
+        if (player1Party == null) {
+            System.out.println("ERROR: Player 1 party not selected!");
+            return;
+        }
 
+        if (player2Party == null) {
+            System.out.println("ERROR: Player 2 party not selected!");
+            return;
+        }
+
+        System.out.println("Player 1: " + player1Party.getPartyName() +
+                " (" + player1Party.getHeroes().size() + " heroes)");
+        System.out.println("Player 2: " + player2Party.getPartyName() +
+                " (" + player2Party.getHeroes().size() + " heroes)");
+
+        // Start the battle in a new thread
         new Thread(() -> {
-            BattleManager battle = new BattleManager(p1, p2);
+            BattleManager battle = new BattleManager(player1Party, player2Party);
             battle.startBattle();
         }).start();
     }

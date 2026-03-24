@@ -31,7 +31,6 @@ public class Warrior extends Hero {
     @Override
     public void useSpecialAbility(Hero target, Party friendlyParty, Party enemyParty) {
         if (spendMana(60)) {
-            // When attacking a unit, damage 2 more units for 25% of the original damage
             List<Hero> aliveEnemies = new ArrayList<>();
             for (Hero enemy : enemyParty.getHeroes()) {
                 if (!enemy.isDefeated()) {
@@ -40,21 +39,24 @@ public class Warrior extends Hero {
             }
 
             if (!aliveEnemies.isEmpty()) {
-                // Main target (first alive enemy)
-                Hero mainTarget = aliveEnemies.get(0);
-                int mainDamage = this.attack - mainTarget.getDefense();
+                // Use the TARGET that was selected by the player
+                int mainDamage = this.attack - target.getDefense();
                 if (mainDamage < 0) mainDamage = 1;
-                mainTarget.takeDamage(mainDamage);
+                target.takeDamage(mainDamage);
 
-                // Hit up to 2 more enemies for 25% damage
-                for (int i = 1; i < Math.min(3, aliveEnemies.size()); i++) {
-                    Hero secondaryTarget = aliveEnemies.get(i);
-                    int secondaryDamage = mainDamage / 4;
-                    if (secondaryDamage < 1) secondaryDamage = 1;
-                    secondaryTarget.takeDamage(secondaryDamage);
+                // Hit up to 2 MORE enemies (excluding the main target)
+                int additionalHits = 0;
+                for (Hero enemy : aliveEnemies) {
+                    if (enemy != target && additionalHits < 2) {
+                        int secondaryDamage = mainDamage / 4;
+                        if (secondaryDamage < 1) secondaryDamage = 1;
+                        enemy.takeDamage(secondaryDamage);
+                        additionalHits++;
+                    }
                 }
 
-                System.out.println(heroClass + " uses Berserker Attack, hitting multiple enemies!");
+                System.out.println(heroClass + " uses Berserker Attack on " +
+                        target.getHeroClass() + ", hitting " + additionalHits + " additional enemies!");
             }
         }
     }

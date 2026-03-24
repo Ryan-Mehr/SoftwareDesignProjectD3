@@ -43,7 +43,8 @@ public class BattleController implements Initializable {
     private String player1Name;
     private String player2Name;
     private boolean isPlayer1Turn = true; // true = Player 1's turn, false = Player 2's turn
-
+    private Hero player1Hero;
+    private Hero player2Hero;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -263,6 +264,10 @@ public class BattleController implements Initializable {
         // Initialize the battle
         battleSystem.initializeBattle();
 
+        // Set player heroes for debug
+        player1Hero = yourParty.getHeroes().get(0);
+        player2Hero = opponentParty.getHeroes().get(0);
+
         // Player 1 starts
         isPlayer1Turn = true;
         currentActingHero = yourParty.getHeroes().get(0); // Player 1's first hero
@@ -306,13 +311,28 @@ public class BattleController implements Initializable {
 
         // Get the target
         Hero target = aliveEnemies.get(selectedIndex);
+        // debug block start
+        System.out.println("=== BATTLE DEBUG ===");
+        System.out.println("Attacker: " + currentActingHero.getHeroClass());
+        System.out.println("Attacker HP before: " + currentActingHero.getHp());
+        System.out.println("Attacker Attack: " + currentActingHero.getAttack());
+        System.out.println("Target: " + target.getHeroClass());
+        System.out.println("Target HP before: " + target.getHp());
+        System.out.println("Target Defense: " + target.getDefense());
+        System.out.println("Player 1 Hero: " + (player1Hero != null ? player1Hero.getHeroClass() : "null"));
+        System.out.println("Player 2 Hero: " + (player2Hero != null ? player2Hero.getHeroClass() : "null"));
+        System.out.println("isPlayer1Turn: " + isPlayer1Turn);
+        System.out.println("player1Name: " + player1Name);
+        System.out.println("player2Name: " + player2Name);
+        System.out.println("=====================");
+        // debug block end
 
         System.out.println("\t*** currentActingHero.getAttack()=" + currentActingHero.getAttack() +
                 " target.getDefense()=" + target.getDefense());
         // Calculate damage
         int damage = currentActingHero.getAttack() - target.getDefense();
         System.out.println("\t*** damage=" + damage);
-        if (damage < 0) damage = 1;
+        if (damage <= 0) damage = 1;
 
         // Apply damage
         target.takeDamage(damage);

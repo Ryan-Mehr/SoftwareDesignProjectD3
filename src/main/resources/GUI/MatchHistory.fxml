@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.MatchHistoryController"
+            prefWidth="600" prefHeight="400">
+
+    <TableView fx:id="matchTable" layoutX="20" layoutY="20" prefWidth="560" prefHeight="350">
+        <columns>
+            <TableColumn fx:id="colPlayer1" text="Player 1" prefWidth="120"/>
+            <TableColumn fx:id="colPlayer2" text="Player 2" prefWidth="120"/>
+            <TableColumn fx:id="colWinner" text="Winner" prefWidth="120"/>
+            <TableColumn fx:id="colTimestamp" text="Date" prefWidth="200"/>
+        </columns>
+    </TableView>
+
+    <!-- Back Button Added -->
+    <Button layoutX="20" layoutY="380" prefWidth="120" prefHeight="40"
+            text="Back" onAction="#backToMainMenu"/>
+
+</AnchorPane>

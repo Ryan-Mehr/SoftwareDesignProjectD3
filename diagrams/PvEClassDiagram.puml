@@ -1,0 +1,41 @@
+@startuml
+class Player {
+  - name: String
+  - health: int
+  - attackPower: int
+  + attack(): int
+  + takeDamage(damage: int)
+}
+
+class Enemy {
+  - name: String
+  - health: int
+  - attackPower: int
+  + attack(): int
+  + takeDamage(damage: int)
+}
+
+class Room {
+  - roomNumber: int
+  - enemy: Enemy
+  + getEnemy(): Enemy
+  + getRoomNumber(): int
+}
+
+class PvEController {
+  - player: Player
+  - currentEnemy: Enemy
+  - rooms: Room[]
+  - currentRoomIndex: int
+  + handleAttack()
+  + handleDefend()
+  + handleNextRoom()
+  + handleStartBattle()
+}
+
+Player --> Enemy
+PvEController --> Player
+PvEController --> Enemy
+PvEController --> Room
+Room --> Enemy
+@enduml

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #f2ebd8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationController">
+   <children>
+      <Text layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legends of Sword and Wand" textAlignment="CENTER" wrappingWidth="700.0">
+         <font>
+            <Font name="Monospaced Bold" size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="225.0" layoutY="610.0" mnemonicParsing="false" onAction="#goToHeroesMenu" prefHeight="50.0" prefWidth="250.0" text="BACK">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Button>
+      <Text layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HEROES LIST/INFO" textAlignment="CENTER" wrappingWidth="700.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="chooseHeroChoicebox" layoutX="243.0" layoutY="142.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LIST OF HEROES" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Button layoutX="225.0" layoutY="534.0" mnemonicParsing="false" onAction="#listOutHeroInformation" prefHeight="50.0" prefWidth="250.0" text="Show Info">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="heroClassLabel" layoutX="242.0" layoutY="194.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO CLASS" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="heroLevelLabel" layoutX="242.0" layoutY="222.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO LEVEL" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="heroAttackLabel" layoutX="242.0" layoutY="248.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO ATTACK" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="heroDefenseLabel" layoutX="242.0" layoutY="274.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO DEFENSE" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="heroMaxHPLabel" layoutX="242.0" layoutY="301.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO MAXHP" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <Label fx:id="heroMaxManaLabel" layoutX="242.0" layoutY="328.0" prefHeight="25.0" prefWidth="250.0" />
+      <Text layoutX="24.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HERO MAXMANA" textAlignment="CENTER" wrappingWidth="218.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

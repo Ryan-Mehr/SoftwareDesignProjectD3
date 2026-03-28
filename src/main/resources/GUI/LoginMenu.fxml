@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-color: #f2ebd8;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationController">
+   <children>
+      <Text layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legends of Sword and Wand" textAlignment="CENTER" wrappingWidth="700.0">
+         <font>
+            <Font name="Monospaced Bold" size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="225.0" layoutY="435.0" mnemonicParsing="false" onAction="#account" prefHeight="50.0" prefWidth="250.0" text="BACK">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Button>
+      <Text layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="CENTER" wrappingWidth="700.0">
+         <font>
+            <Font name="Monospaced Bold" size="24.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="passwordField" layoutX="326.0" layoutY="273.0" />
+      <TextField fx:id="usernameField" layoutX="326.0" layoutY="233.0" />
+      <Text layoutX="213.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" textAlignment="CENTER" wrappingWidth="113.0">
+         <font>
+            <Font name="Monospaced Regular" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="213.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD" textAlignment="CENTER" wrappingWidth="113.0">
+         <font>
+            <Font name="Monospaced Regular" size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="326.0" layoutY="312.0" mnemonicParsing="false" onAction="#loginAccount" prefHeight="35.0" prefWidth="149.0" text="LOG IN">
+         <font>
+            <Font name="Monospaced Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="statusLabel" layoutX="225.0" layoutY="358.0" prefHeight="67.0" prefWidth="250.0" />
+   </children>
+</AnchorPane>

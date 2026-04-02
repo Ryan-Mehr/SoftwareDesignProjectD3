@@ -9,6 +9,10 @@ public class Room {
         this.enemy = enemy;
     }
 
+    public RoomData getData() {
+        return new RoomData(this.roomNumber);
+    }
+
     public Enemy getEnemy() { return enemy; }
     public int getRoomNumber() { return roomNumber;}
 }

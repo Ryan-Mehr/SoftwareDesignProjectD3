@@ -28,17 +28,35 @@ public class PvEController {
     private Enemy currentEnemy;
     private Room[] rooms;
     private int currentRoomIndex = 0;
+    private BattleUIManager uiManager;
+
+    @FXML
+    private void initialize() {
+        // Single constructor, assign buttons and labels
+        uiManager = new BattleUIManager(
+                attackButton, defendButton, nextRoomButton,
+                playerHealthLabel, enemyHealthLabel, roomLabel
+        );
+
+        uiManager.disableAllButtons();
+        uiManager.hideAllButtons();
+        returnButton.setVisible(false);
+    }
 
     @FXML
     private void handleStartBattle(ActionEvent event) {
-
-        attackButton.setVisible(true);
-        defendButton.setVisible(true);
-
+        initializePlayer();
+        initializeRooms();
+        startRoom();
+        battleLog.appendText("Battle started!\n");
         startButton.setDisable(true);
+    }
 
+    private void initializePlayer() {
         player = new Player("Hero", 100, 20);
+    }
 
+    private void initializeRooms() {
         Enemy zombie = new Enemy("Zombie", 50, 10);
         Enemy skeleton = new Enemy("Skeleton", 60, 12);
         Enemy spider = new Enemy("Spider", 40, 8);
@@ -48,43 +66,29 @@ public class PvEController {
                 new Room(2, skeleton),
                 new Room(3, spider)
         };
-
         currentRoomIndex = 0;
-
-        battleLog.clear();
-
-        loadRoom();
-
-        attackButton.setDisable(false);
-        defendButton.setDisable(false);
-        nextRoomButton.setDisable(true);
-
-        battleLog.appendText("Battle started!\n");
     }
 
-    @FXML
-    private void handleRestart(ActionEvent event) {
-        currentRoomIndex = 0;
-
-        player.setHealth(100);
-        loadRoom();
-
-        attackButton.setDisable(false);
-        defendButton.setDisable(false);
-        nextRoomButton.setDisable(true);
-
-        nextRoomButton.setText("Next Room");
-
+    private void startRoom() {
         battleLog.clear();
-        battleLog.appendText("Campaign Restarted!\n");
+        loadRoom();
+        uiManager.showAllButtons();
+        uiManager.enableAllButtons();
+    }
+
+    private void updateLabels() {
+        PlayerData playerData = player.getData();
+        EnemyData enemyData = currentEnemy.getData();
+        RoomData roomData = rooms[currentRoomIndex].getData();
+
+        uiManager.updateLabels(playerData, enemyData, roomData);
     }
 
     @FXML
     private void handleAttack(ActionEvent event) {
         int damage = player.attack();
         currentEnemy.takeDamage(damage);
-        battleLog.appendText("Player attacks " + currentEnemy.getName() +
-                " for " + damage + " damage.\n");
+        battleLog.appendText("Player attacks " + currentEnemy.getName() + " for " + damage + " damage.\n");
 
         enemyTurn();
         updateLabels();
@@ -109,41 +113,29 @@ public class PvEController {
         }
     }
 
-    private void updateLabels() {
-        playerHealthLabel.setText(String.valueOf(player.getHealth()));
-        enemyHealthLabel.setText(String.valueOf(currentEnemy.getHealth()));
-        roomLabel.setText("Room " + rooms[currentRoomIndex].getRoomNumber() +
-                ": " + currentEnemy.getName());
-    }
-
     private void checkBattleEnd() {
         if (player.getHealth() <= 0) {
             battleLog.appendText("Player defeated!\n");
-            disableButtons();
+            uiManager.disableAllButtons();
             startButton.setDisable(false);
         } else if (currentEnemy.getHealth() <= 0) {
             battleLog.appendText("Enemy defeated!\n");
-            disableButtons();
-            nextRoomButton.setDisable(false);
+            uiManager.disableAllButtons();
+            nextRoomButton.setDisable(false); // enable next room only when enemy dead
         }
     }
 
     @FXML
     private void handleNextRoom(ActionEvent event) {
-
         currentRoomIndex++;
         if (currentRoomIndex < rooms.length) {
             loadRoom();
-            attackButton.setVisible(true);
-            defendButton.setVisible(true);
-            attackButton.setDisable(false);
-            defendButton.setDisable(false);
-
-            nextRoomButton.setDisable(true);
+            uiManager.showAllButtons();
+            uiManager.enableAllButtons();
+            nextRoomButton.setDisable(true); // wait for enemy defeat
         } else {
             battleLog.appendText("\nCampaign Complete!\n");
-            attackButton.setVisible(false);
-            defendButton.setVisible(false);
+            uiManager.hideAllButtons();
             nextRoomButton.setDisable(true);
             startButton.setDisable(false);
             returnButton.setVisible(true);
@@ -155,12 +147,6 @@ public class PvEController {
         battleLog.appendText("\nEntering Room " + rooms[currentRoomIndex].getRoomNumber() +
                 " - Enemy: " + currentEnemy.getName() + "\n");
         updateLabels();
-    }
-
-    private void disableButtons() {
-        attackButton.setDisable(true);
-        defendButton.setDisable(true);
-
     }
 
     @FXML
@@ -178,12 +164,53 @@ public class PvEController {
         }
     }
 
-    @FXML
-    private void initialize() {
-        attackButton.setVisible(false);
-        defendButton.setVisible(false);
-        nextRoomButton.setDisable(true);
-        returnButton.setVisible(false);
-    }
+    // --- BattleUIManager ---
+    private class BattleUIManager {
+        private Button attackButton;
+        private Button defendButton;
+        private Button nextRoomButton;
+        private Label playerHealthLabel;
+        private Label enemyHealthLabel;
+        private Label roomLabel;
 
+        public BattleUIManager(Button attack, Button defend, Button nextRoom,
+                               Label playerLabel, Label enemyLabel, Label roomLabel) {
+            this.attackButton = attack;
+            this.defendButton = defend;
+            this.nextRoomButton = nextRoom;
+
+            this.playerHealthLabel = playerLabel;
+            this.enemyHealthLabel = enemyLabel;
+            this.roomLabel = roomLabel;
+        }
+
+        public void disableAllButtons() {
+            attackButton.setDisable(true);
+            defendButton.setDisable(true);
+            nextRoomButton.setDisable(true);
+        }
+
+        public void enableAllButtons() {
+            attackButton.setDisable(false);
+            defendButton.setDisable(false);
+        }
+
+        public void showAllButtons() {
+            attackButton.setVisible(true);
+            defendButton.setVisible(true);
+            nextRoomButton.setVisible(true);
+        }
+
+        public void hideAllButtons() {
+            attackButton.setVisible(false);
+            defendButton.setVisible(false);
+            nextRoomButton.setVisible(false);
+        }
+
+        public void updateLabels(PlayerData playerData, EnemyData enemyData, RoomData roomData) {
+            playerHealthLabel.setText(String.valueOf(playerData.getHealth()));
+            enemyHealthLabel.setText(String.valueOf(enemyData.getHealth()));
+            roomLabel.setText("Room " + roomData.getRoomNumber() + ": " + enemyData.getName());
+        }
+    }
 }

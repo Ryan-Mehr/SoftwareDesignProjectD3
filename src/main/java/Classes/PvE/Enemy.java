@@ -12,6 +12,10 @@ public class Enemy {
         this.attackPower = attackPower;
     }
 
+    public EnemyData getData() {
+        return new EnemyData(this.name, this.health);
+    }
+
     public void attack(Player player) {
         player.takeDamage(this.attackPower);
     }

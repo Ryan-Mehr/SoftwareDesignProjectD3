@@ -10,6 +10,9 @@ public class Player {
         this.health = health;
         this.attackPower = attackPower;
     }
+    public PlayerData getData() {
+        return new PlayerData(this.health);
+    }
 
     public String getName() {
         return name;

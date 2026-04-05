@@ -52,12 +52,6 @@ public class ApplicationController {
     String[] heroNames;
     String[] heroClasses = {"ORDER", "CHAOS", "WARRIOR", "MAGE"};
 
-    OrderFactory orderFactory = new OrderFactory();
-    ChaosFactory chaosFactory = new ChaosFactory();
-    WarriorFactory warriorFactory = new WarriorFactory();
-    MageFactory mageFactory = new MageFactory();
-
-
     // Make sure Repositories are singletons.
     UserRepository userRepository = UserRepository.getInstance();
     HeroRepository heroRepository = HeroRepository.getInstance();
@@ -369,7 +363,7 @@ public class ApplicationController {
         if (checkLoggedIn()) {
             // A
             String choiceBoxValue = (String) chooseHeroClassChoicebox.getValue();
-            Hero heroChosen = orderFactory.createHero();
+            Hero heroChosen = OrderFactory.getInstance().createHero();
 
             if (chooseHeroClassChoicebox.getValue() == null) {
                 System.out.println("Please choose a hero");

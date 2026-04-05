@@ -1,6 +1,7 @@
 package DAO;
 
 import Classes.Heros.Hero;
+import Classes.PvE.Campaign;
 import Classes.User;
 import Factory.*;
 import Repository.DatabaseManager;
@@ -45,6 +46,22 @@ public class HeroDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        }
+    }
+
+    public void updateHero(Hero hero, int userID) throws SQLException {
+        String query = "UPDATE HEROES SET class = ?, level = ?, maxHP = ?, maxMana = ?, attack = ?, defense = ? " + "WHERE (userID = ? AND idHEROES = ?)";
+        try (Connection conn = DatabaseManager.getConnection()) {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, hero.getHeroClassString());
+            preparedStatement.setInt(2, hero.getLevel());
+            preparedStatement.setInt(3, hero.getMaxHp());
+            preparedStatement.setInt(4, hero.getMaxMana());
+            preparedStatement.setInt(5, hero.getAttack());
+            preparedStatement.setInt(6, hero.getDefense());
+            preparedStatement.setInt(7, userID);
+            preparedStatement.setInt(8, hero.getHeroIDInt());
+            preparedStatement.executeUpdate();
         }
     }
 

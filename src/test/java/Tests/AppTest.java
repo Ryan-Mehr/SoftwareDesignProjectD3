@@ -149,8 +149,8 @@ public class AppTest {
         @Order(10)
         @DisplayName("WarriorFactory.createHero() returns a non-null Hero")
         void factoryReturnsNonNullHero() {
-            HeroFactory factory = new WarriorFactory();
-            Hero hero = factory.createHero();
+            // HeroFactory factory = new WarriorFactory();
+            Hero hero = WarriorFactory.getInstance().createHero();
             assertNotNull(hero, "Factory must return a non-null hero");
         }
 
@@ -158,8 +158,8 @@ public class AppTest {
         @Order(11)
         @DisplayName("WarriorFactory produces a Warrior with correct HeroClass")
         void factoryProducesCorrectHeroClass() {
-            HeroFactory factory = new WarriorFactory();
-            Hero hero = factory.createHero();
+            // HeroFactory factory = new WarriorFactory();
+            Hero hero = WarriorFactory.getInstance().createHero();
             assertEquals(HeroClass.WARRIOR, hero.getHeroClass(),
                     "WarriorFactory must produce HeroClass.WARRIOR");
         }
@@ -168,8 +168,8 @@ public class AppTest {
         @Order(12)
         @DisplayName("Factory-created hero starts at level 1 with positive stats")
         void factoryHeroHasDefaultStats() {
-            HeroFactory factory = new WarriorFactory();
-            Hero hero = factory.createHero();
+            // HeroFactory factory = new WarriorFactory();
+            Hero hero = WarriorFactory.getInstance().createHero();
 
             assertEquals(1, hero.getLevel());
             assertTrue(hero.getHp() > 0, "HP must be positive");
@@ -182,9 +182,9 @@ public class AppTest {
         @Order(13)
         @DisplayName("Each factory call produces a distinct Hero instance")
         void factoryProducesDistinctInstances() {
-            HeroFactory factory = new WarriorFactory();
-            Hero h1 = factory.createHero();
-            Hero h2 = factory.createHero();
+            // HeroFactory factory = new WarriorFactory();
+            Hero h1 = WarriorFactory.getInstance().createHero();
+            Hero h2 = WarriorFactory.getInstance().createHero();
             assertNotSame(h1, h2, "Factory must return distinct object references");
         }
 
@@ -193,8 +193,8 @@ public class AppTest {
         @DisplayName("HeroFactory interface can be used polymorphically")
         void interfacePolymorphism() {
             // Demonstrate that any HeroFactory reference works the same way
-            HeroFactory ref = new WarriorFactory();
-            Hero hero = ref.createHero();
+            // HeroFactory ref = new WarriorFactory();
+            Hero hero = WarriorFactory.getInstance().createHero();
             assertInstanceOf(Hero.class, hero,
                     "Result of createHero() must be assignable to Hero");
         }

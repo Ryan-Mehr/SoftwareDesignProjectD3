@@ -1,5 +1,8 @@
 package Classes.PvE;
 
+import GlobalVariables.ApplicationStates;
+import Repository.CampaignRepository;
+import Repository.HeroRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class PvEController {
 
@@ -40,7 +44,7 @@ public class PvEController {
 
         uiManager.disableAllButtons();
         uiManager.hideAllButtons();
-        returnButton.setVisible(false);
+        returnButton.setVisible(true);
     }
 
     @FXML
@@ -66,7 +70,7 @@ public class PvEController {
                 new Room(2, skeleton),
                 new Room(3, spider)
         };
-        currentRoomIndex = 0;
+        currentRoomIndex = ApplicationStates.PvECampaign.getRoomNumberIndex();
     }
 
     private void startRoom() {
@@ -138,8 +142,9 @@ public class PvEController {
             uiManager.hideAllButtons();
             nextRoomButton.setDisable(true);
             startButton.setDisable(false);
-            returnButton.setVisible(true);
+            // returnButton.setVisible(true);
         }
+        ApplicationStates.PvECampaign.getPlayerHero().setLevel(ApplicationStates.PvECampaign.getPlayerHero().getLevel() + 1);
     }
 
     private void loadRoom() {
@@ -212,5 +217,14 @@ public class PvEController {
             enemyHealthLabel.setText(String.valueOf(enemyData.getHealth()));
             roomLabel.setText("Room " + roomData.getRoomNumber() + ": " + enemyData.getName());
         }
+    }
+
+    public void saveTheCampaign(ActionEvent event) throws IOException, SQLException {
+        // CampaignRepository.getInstance().createCampaign(ApplicationStates.PvECampaign);
+        System.out.println("Saving campaign, " + ApplicationStates.PvECampaign.getRoomNumberIndex() + " " + currentRoomIndex);
+        ApplicationStates.PvECampaign.setRoomNumberIndex(currentRoomIndex);
+        System.out.println("Saving campaign, " + ApplicationStates.PvECampaign.getRoomNumberIndex() + " " + currentRoomIndex);
+        CampaignRepository.getInstance().updateCampaign(ApplicationStates.PvECampaign, ApplicationStates.PvECampaign.getCampaignName(), ApplicationStates.theUser.getId());
+        HeroRepository.getInstance().updateHero(ApplicationStates.PvECampaign.getPlayerHero(), ApplicationStates.PvECampaign.getUserID());
     }
 }

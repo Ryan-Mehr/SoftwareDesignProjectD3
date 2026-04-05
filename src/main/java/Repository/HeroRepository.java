@@ -28,6 +28,10 @@ public class HeroRepository {
         heroDAO.saveHero(hero, userID);
     }
 
+    public void updateHero(Hero hero, int userID) throws SQLException {
+        heroDAO.updateHero(hero, userID);
+    }
+
     public Hero getIndividualHero(int heroID) throws SQLException {
         return heroDAO.getIndividualHero(heroID);
     }

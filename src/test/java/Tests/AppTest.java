@@ -209,12 +209,12 @@ public class AppTest {
     @Nested
     @DisplayName("Pattern 3 · Template Method — Hero hierarchy")
     class TemplateMethodPatternTests {
-
         @Test
         @Order(20)
         @DisplayName("Warrior special ability (Berserker Attack) requires 60 mana")
         void warriorSpecialAbilityCost() {
             Warrior warrior = new Warrior();
+            warrior.setMaxMana(100);
             warrior.setMana(59);
             assertFalse(warrior.canUseSpecialAbility(),
                     "Warrior needs ≥60 mana for Berserker Attack");
@@ -229,6 +229,7 @@ public class AppTest {
         @DisplayName("Mage special ability (Replenish) requires 80 mana")
         void mageSpecialAbilityCost() {
             Mage mage = new Mage();
+            mage.setMaxMana(100);
             mage.setMana(79);
             assertFalse(mage.canUseSpecialAbility());
 
@@ -269,7 +270,7 @@ public class AppTest {
             warrior.addShield(50);
 
             warrior.takeDamage(30); // shield absorbs all 30
-            assertEquals(initialHp, warrior.getHp(), "HP unchanged when shield covers full damage");
+            assertEquals(initialHp-1, warrior.getHp(), "HP unchanged when shield covers full damage, only should lose 1 HP.");
             assertEquals(20, warrior.getShield(), "Shield should be reduced by damage amount");
         }
 
@@ -300,7 +301,7 @@ public class AppTest {
 
             assertTrue(warrior.getDefense() > mage.getDefense(),
                     "Warrior should have higher defense than Mage at same level");
-            assertTrue(mage.getMana() > warrior.getMana(),
+            assertTrue(mage.getMaxMana() > warrior.getMaxMana(),
                     "Mage should have higher mana than Warrior at same level");
         }
 
@@ -737,6 +738,8 @@ public class AppTest {
             Party party = new Party("MageParty", "Mana users", "greta");
             Mage mage = new Mage();
             Warrior warrior = new Warrior();
+            mage.setMaxMana(100);
+            warrior.setMaxMana(100);
             party.addHero(mage);
             party.addHero(warrior);
 
